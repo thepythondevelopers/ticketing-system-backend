@@ -38,14 +38,25 @@ exports.verifyToken = async (req, res, next) => {
 };
 
 exports.checkDragExist = async (req, res, next) => {
-  
-drag = await Drag.findOne({user:req.user._id,location: req.body.location});
-if(drag!=null){
-  return res.status(401).json({
+  if(!req.user._id){
+    return res.status(400).json({
+      message : "User not found"
+      })
+  }
+  else if(!req.body.location){
+    return res.status(400).json({
+      message : "Location cannot be left empty"
+      })
+  }
+  else if(req.user._id && req.body.location){
+    drag = await Drag.findOne({user:req.user._id,location: req.body.location});
+    if(drag!=null){
+    return res.status(401).json({
     message : "Already Exist"
     })
   }
-return next();  
+  return next();  
+  }
 }
 
 exports.adminroleCheck = (req,res,next) =>{

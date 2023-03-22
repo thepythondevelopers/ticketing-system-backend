@@ -3,12 +3,12 @@ const {validationResult} = require("express-validator");
 var fs = require('fs');
 exports.createSidebar = (req,res) =>{
 
-  file_upload = (typeof(req.files.file_upload) != "undefined" && req.files.file_upload !== null) ? req.files.file_upload[0].filename : null;
+  //file_upload = (typeof(req.files.file_upload) != "undefined" && req.files.file_upload !== null) ? req.files.file_upload[0].filename : null;
     data={
         title : req.body.title,
         user : req.user._id,
         location : req.body.location,
-        file_upload : file_upload
+        //file_upload : file_upload
     }    
     sidebar =new Sidebar(data);
     sidebar.save((err,sidebar)=>{

@@ -2,13 +2,14 @@ const Calender = require("../models/calender");
 const {validationResult} = require("express-validator");
 var fs = require('fs');
 exports.createCalender = (req,res) =>{
+    console.log("request from create calender::",req.body);
     const errors = validationResult(req);
   if(!errors.isEmpty()){
       return res.status(400).json({
           error : errors.array()
       })
   }
-  file_upload = (typeof(req.files.file_upload) != "undefined" && req.files.file_upload !== null) ? req.files.file_upload[0].filename : null; 
+  //file_upload = (typeof(req.files.file_upload) != "undefined" && req.files.file_upload !== null) ? req.files.file_upload[0].filename : null; 
   data = {
         startDate : req.body.startDate,
         endDate : req.body.endDate,
@@ -16,7 +17,7 @@ exports.createCalender = (req,res) =>{
         notes : req.body.notes,
         user : req.user._id,
         location : req.body.location,
-        file_upload : file_upload
+        //file_upload : file_upload
     }
   
     calender =new Calender(data);
@@ -74,6 +75,7 @@ exports.updateCalender = async (req,res) =>{
         
     }  
 
+    console.log("_id::",id,"user::",req.user._id);
     await Calender.findOneAndUpdate(
         {_id : id,user:req.user._id},
         {$set : data},

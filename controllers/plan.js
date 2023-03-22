@@ -5,11 +5,13 @@ var fs = require('fs');
 exports.createPlan = (req,res) =>{
     const errors = validationResult(req);
   if(!errors.isEmpty()){
+    console.log("working1");
       return res.status(400).json({
           error : errors.array()
       })
   }
   if(req.files && Object.entries(req.files).length === 0){
+    console.log("working2");
     return res.status(400).json({
         message : "Please upload document or document is not in right format"
     })
@@ -29,6 +31,7 @@ exports.createPlan = (req,res) =>{
         note_item : req.body.note_item,
         note_create_task : req.body.note_create_task
     }   
+    console.log("data from plans::",data);
     if( req.body.calendar_reminder_choose_date != "null"){
         data.calendar_reminder_choose_date  = req.body.calendar_reminder_choose_date;
     }
@@ -40,6 +43,7 @@ exports.createPlan = (req,res) =>{
     plan =new Plan(data);
     plan.save((err,document)=>{
         if(err){
+            console.log("error::",err);
             return res.status(400).json({
                 message : err
             })
