@@ -7,6 +7,11 @@ const officerSchema = new Schema({
         ref: "User",
         required : true
     },
+    location:{
+        type:String,
+        required : true,
+        trim : true
+    },
     managing_director : {
         name: {
             type: String

@@ -25,14 +25,14 @@ exports.createEvacuation = (req,res) =>{
     
      
     
-    evacuation =new Evacuation(data);
+    var evacuation =new Evacuation(data);
     evacuation.save((err,document)=>{
         if(err){
             return res.status(400).json({
                 message : err
             })
         }
-        return res.json({message : 'Saved Successfully.'});
+        return res.json({message : 'Saved Successfully.','data':evacuation});
     })
 }
 
