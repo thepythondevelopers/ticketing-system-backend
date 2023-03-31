@@ -14,38 +14,38 @@ exports.createPackage = (req,res) =>{
         package_include : req.body.package_include, 
         note : req.body.note
     }    
-    package =new Package(data);
-    package.save((err,package)=>{
+    const s_package =new Package(data);
+    s_package.save((err,d_package)=>{
         if(err){
             return res.status(400).json({
                 message : "Unable to sabe in db"
             })
         }
-        return res.json(package);
+        return res.json(d_package);
     })
 }
 
 exports.getPackage = (req,res)=>{
 
-    Package.find().exec((err,package)=>{
+    Package.find().exec((err,d_package)=>{
         if(err){
             return res.status(400).json({
                 message : "Something Went Wrong"
             })
         }
-        return res.json(package);
+        return res.json(d_package);
     })    
 }
 
 
 exports.getPackageById =  (req,res)=>{
-    Package.findOne({_id:req.params.id}).exec((err,package)=>{
+    Package.findOne({_id:req.params.id}).exec((err,d_package)=>{
         if(err){
             return res.status(400).json({
                 message : "Something Went Wrong"
             })
         }
-        return res.json(package);
+        return res.json(d_package);
     })    
 }
 
@@ -68,7 +68,7 @@ exports.updatePackage = (req,res) =>{
     {_id : id},
     {$set : data},
     {new: true},
-    (err,package) => {
+    (err,d_package) => {
         if(err){
             return res.status(404).json({
                 error : err
@@ -76,13 +76,13 @@ exports.updatePackage = (req,res) =>{
         
         }
 
-        if(package===null){
+        if(d_package===null){
             return res.status(404).json({
                 message : "No Data Found"
             })
         }
 
-        return res.json(package);
+        return res.json(d_package);
     }
     )   
 }
@@ -91,17 +91,17 @@ exports.deletePackage = (req,res) =>{
     let id = req.params.id;
     Package.deleteOne(
         {_id : id,user:req.user._id},
-        (err,package) => {
+        (err,d_package) => {
             if(err){
                 return res.status(404).json({
                     error : err
                 })
             
             }
-            if(package.deletedCount==1){
+            if(d_package.deletedCount==1){
                 return res.json({id : id});
             }
-            if(package.deletedCount==0){
+            if(d_package.deletedCount==0){
                 return res.status(404).json({
                     message : "No Data Found"
                 })
