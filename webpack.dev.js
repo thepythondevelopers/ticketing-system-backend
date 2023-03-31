@@ -1,5 +1,6 @@
 const path = require('path');
 const TerserPlugin = require("terser-webpack-plugin");
+const nodeExternals = require('webpack-node-externals');
  
 //when you want to make devlopment build remember to set enviroment variable to development using CLI command NODE_ENV='development'
 
@@ -15,6 +16,7 @@ module.exports = {
   },
   mode: 'development',
   target: 'node',
+  externals: [nodeExternals()],
   optimization: {
     minimize: true,
     minimizer: [new TerserPlugin({
