@@ -3,6 +3,7 @@ const {validationResult} = require("express-validator");
 var fs = require('fs');
 
 exports.createFormPartB = (req,res) =>{
+    console.log(req);
     const errors = validationResult(req);
   if(!errors.isEmpty()){
       return res.status(400).json({
@@ -11,7 +12,8 @@ exports.createFormPartB = (req,res) =>{
   }
   fire_security_regulation = (typeof(req.files.fire_security_regulation) != "undefined" && req.files.fire_security_regulation !== null) ? req.files.fire_security_regulation[0].filename : null; 
   file_upload = (typeof(req.files.file_upload) != "undefined" && req.files.file_upload !== null) ? req.files.file_upload[0].filename : null; 
-    data={
+
+  data={
         introduction : req.body.introduction,
         fire_security_regulation : fire_security_regulation,
         fire_protection : req.body.fire_protection,

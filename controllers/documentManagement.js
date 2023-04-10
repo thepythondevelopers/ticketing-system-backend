@@ -3,6 +3,7 @@ const {validationResult} = require("express-validator");
 var fs = require('fs');
 
 exports.createDocument = (req,res) =>{
+    console.log(req);
     const errors = validationResult(req);
   if(!errors.isEmpty()){
       return res.status(400).json({

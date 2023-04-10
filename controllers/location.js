@@ -31,7 +31,7 @@ exports.createLocation = (req,res) =>{
     location.save((err,location)=>{
         if(err){
             return res.status(400).json({
-                message : "Unable to save in db"
+                error : "Unable to save in db"
             })
         }
         return res.json(location);
@@ -42,6 +42,7 @@ exports.updateLocation =async (req,res) =>{
     let id = req.params.id;
     const errors = validationResult(req);
   if(!errors.isEmpty()){
+    console.log(errors);
       return res.status(400).json({
           error : errors.array()
       })

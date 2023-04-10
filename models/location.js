@@ -33,7 +33,8 @@ const locationSchema = new Schema({
     },
     show_as:{
         type:String,
-        trim : true
+        trim : true,
+        required: true
     },
     location:{
         type:String,
@@ -46,11 +47,13 @@ const locationSchema = new Schema({
     },
     no_of_members:{
         type: Number,
-        trim : true
+        trim : true,
+        required: true
     },
     percentage:{
         type: Number,
-        trim : true
+        trim : true,
+        required: true
     },
     note:{
         type: String,
