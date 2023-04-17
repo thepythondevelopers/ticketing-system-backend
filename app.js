@@ -5,6 +5,11 @@ const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const http = require('http');
+const https = require('https');
+const fs = require('fs');
+const cert = process.env.SSL_CERT;
+const priv_key = process.env.SSL_PRIV_KEY;
 
 
 //Routes

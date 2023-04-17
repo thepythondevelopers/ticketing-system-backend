@@ -18,7 +18,6 @@ exports.createOfficer = async (req,res) =>{
     else if(officer.length>0){
         /*console.log("user",req.user._id,"location",req.body.location);
         return res.status(400).json({"error":"Already Exists"});*/
-        console.log("tick",req.body.tick);
         data={
             user : req.user._id, 
             location : req.body.location,
@@ -27,8 +26,7 @@ exports.createOfficer = async (req,res) =>{
             object_director : req.body.object_director,
             responsible_fire_protection : req.body.responsible_fire_protection,
             fire_protection_officer : req.body.fire_protection_officer,
-            helpers : req.body.helpers,
-            tick : req.body.tick
+            helpers : req.body.helpers
         }  
         await Officer.findOneAndUpdate(
             {user:req.user._id,location:req.body.location},
@@ -61,8 +59,7 @@ exports.createOfficer = async (req,res) =>{
             object_director : req.body.object_director,
             responsible_fire_protection : req.body.responsible_fire_protection,
             fire_protection_officer : req.body.fire_protection_officer,
-            helpers : req.body.helpers,
-            tick : req.body.tick
+            helpers : req.body.helpers
         }   
         
         officer =new Officer(data);
