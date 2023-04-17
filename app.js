@@ -93,7 +93,26 @@ app.use('/api',uploadTemplateRoutes);
 app.use('/api',fireProtectionReportRoutes);
 //app.use('/api',ticketingRoutes);
 
-app.listen(port,()=>{
-    console.log(`Server is running at port ${port}`)
-});
+//app.listen(port,()=>{
+//console.log(`Server is running at port ${port}`)
+//});
+
+ if (process.env.SSL == "true") {
+   server = https.createServer(
+     {
+       cert: fs.readFileSync(cert),
+       key: fs.readFileSync(priv_key),
+     },
+     app
+   );
+   server.listen(port, () => {
+     console.log(`Server running at port at ${port}...`);
+
+   });
+ } else {
+   server = http.createServer(app);
+   server.listen(port, () => {
+     console.log(`Server running at port at11 ${port}...`);
+   });
+}
 
