@@ -14,16 +14,20 @@ const officerSchema = new Schema({
     },
     managing_director : {
         name: {
-            type: String
+            type: String,
+            required : true
         },
         first_name:{
-            type: String
+            type: String,
+            required : true
             },
         contact_number:{
-            type: Number
+            type: Number,
+            required : true
         },
         email:{
-            type: String
+            type: String,
+            required : true
         }
     },
     deputy_managing_director : {
@@ -70,16 +74,20 @@ const officerSchema = new Schema({
     },
     fire_protection_officer : {
         name: {
-            type: String
+            type: String,
+            required : true
         },
         first_name:{
-            type: String
+            type: String,
+            required : true
             },
         contact_number:{
-            type: Number
+            type: Number,
+            required : true
         },
         email:{
-            type: String
+            type: String,
+            required : true
         }
     },
     helpers : {

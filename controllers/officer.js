@@ -2,14 +2,14 @@ const Officer = require("../models/officer");
 const {validationResult} = require("express-validator");
 
 
-exports.createOfficer = (req,res) =>{
+exports.createOfficer = async (req,res) =>{
     const errors = validationResult(req);
   if(!errors.isEmpty()){
       return res.status(400).json({
           error : errors.array()
       })
   }
-  Officer.find({user:req.user._id,location:req.body.location}).exec((err,officer)=>{
+  await Officer.find({user:req.user._id,location:req.body.location}).exec(async (err,officer)=>{
     if(err){
         return res.status(400).json({
             message : "Something Went Wrong"
@@ -18,6 +18,7 @@ exports.createOfficer = (req,res) =>{
     else if(officer.length>0){
         /*console.log("user",req.user._id,"location",req.body.location);
         return res.status(400).json({"error":"Already Exists"});*/
+        console.log("tick",req.body.tick);
         data={
             user : req.user._id, 
             location : req.body.location,
@@ -26,9 +27,10 @@ exports.createOfficer = (req,res) =>{
             object_director : req.body.object_director,
             responsible_fire_protection : req.body.responsible_fire_protection,
             fire_protection_officer : req.body.fire_protection_officer,
-            helpers : req.body.helpers
+            helpers : req.body.helpers,
+            tick : req.body.tick
         }  
-        Officer.findOneAndUpdate(
+        await Officer.findOneAndUpdate(
             {user:req.user._id,location:req.body.location},
             {$set : data},
             {new: true},
@@ -59,11 +61,12 @@ exports.createOfficer = (req,res) =>{
             object_director : req.body.object_director,
             responsible_fire_protection : req.body.responsible_fire_protection,
             fire_protection_officer : req.body.fire_protection_officer,
-            helpers : req.body.helpers
+            helpers : req.body.helpers,
+            tick : req.body.tick
         }   
         
         officer =new Officer(data);
-        officer.save((err,document)=>{
+        await officer.save((err,document)=>{
             if(err){
                 return res.status(400).json({
                     message : err
