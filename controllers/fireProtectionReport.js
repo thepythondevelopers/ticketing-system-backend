@@ -238,7 +238,7 @@ exports.updateFireProtectionReport = (req,res) =>{
 
 
 }     
-  FireProtectionReport.findOneAndUpdate(
+  FireProtectionReport.updateOne(
     {_id : id},
     {$set : data},
     {new: true},

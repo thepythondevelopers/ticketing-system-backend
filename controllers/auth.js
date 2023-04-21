@@ -161,7 +161,7 @@ exports.signin = (req,res) =>{
      if (!user) {
         res.json({error:'User Not Found'});
      } else {
-      User.findOneAndUpdate(
+      User.updateOne(
         {email: req.body.email},
         {$set : content},
         {new: true},
@@ -213,7 +213,7 @@ exports.signin = (req,res) =>{
       }
       
 
-      User.findOneAndUpdate(
+      User.updateOne(
         {email:req.body.email},
         {$set : content},
         {new: true},

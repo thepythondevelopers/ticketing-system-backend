@@ -93,7 +93,7 @@ exports.updateDocument =async (req,res) =>{
     }
     })    
 
-    await DocumentManagement.findOneAndUpdate(
+    await DocumentManagement.updateOne(
         {_id : id,user:req.user._id},
         {$set : data},
         {new: true},

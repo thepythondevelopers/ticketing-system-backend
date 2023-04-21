@@ -64,7 +64,7 @@ exports.updatePackage = (req,res) =>{
     package_include : req.body.package_include, 
     note : req.body.note
   }
-  Package.findOneAndUpdate(
+  Package.updateOne(
     {_id : id},
     {$set : data},
     {new: true},

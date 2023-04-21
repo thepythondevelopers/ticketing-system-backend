@@ -48,7 +48,7 @@ exports.updateDrag = (req,res) =>{
   data = {
     data : JSON.stringify(req.body.data)
   }
-  Drag.findOneAndUpdate(
+  Drag.updateOne(
     {_id : id,user:req.user._id},
     {$set : data},
     {new: true},

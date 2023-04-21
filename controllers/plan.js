@@ -96,7 +96,7 @@ exports.updatePlan =async (req,res) =>{
     }
     })    
 
-    await Plan.findOneAndUpdate(
+    await Plan.updateOne(
         {_id : id,user:req.user._id},
         {$set : data},
         {new: true},

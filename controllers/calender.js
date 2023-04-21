@@ -76,7 +76,7 @@ exports.updateCalender = async (req,res) =>{
     }  
 
     console.log("_id::",id,"user::",req.user._id);
-    await Calender.findOneAndUpdate(
+    await Calender.updateOne(
         {_id : id,user:req.user._id},
         {$set : data},
         {new: true},

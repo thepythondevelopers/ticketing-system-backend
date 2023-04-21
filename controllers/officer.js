@@ -28,7 +28,7 @@ exports.createOfficer = async (req,res) =>{
             fire_protection_officer : req.body.fire_protection_officer,
             helpers : req.body.helpers
         }  
-        await Officer.findOneAndUpdate(
+        await Officer.updateOne(
             {user:req.user._id,location:req.body.location},
             {$set : data},
             {new: true},
@@ -78,6 +78,7 @@ exports.createOfficer = async (req,res) =>{
 
 exports.getOfficer =  (req,res)=>{
     if(req.body.location){
+        console.log("req.body.location::",req.body.location);
         Officer.find({user:req.user._id,location:req.body.location}).exec((err,officer)=>{
             if(err){
                 return res.status(400).json({

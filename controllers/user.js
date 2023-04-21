@@ -66,7 +66,7 @@ exports.updateUser =  async (req,res)=>{
         }
     }
 })
-  User.findOneAndUpdate(
+  User.updateOne(
     {_id:req.user._id},
     {$set : data},
     {new: true, select: "-password"},
@@ -100,7 +100,7 @@ exports.userDeactivate =  (req,res)=>{
   data = {
     status : 0
   }
-  User.findOneAndUpdate(
+  User.updateOne(
     {_id:id},
     {$set : data},
     {new: true, select: "-password"},
@@ -134,7 +134,7 @@ exports.userActive =  (req,res)=>{
   data = {
     status : 1
   }
-  User.findOneAndUpdate(
+  User.updateOne(
     {_id:id},
     {$set : data},
     {new: true, select: "-password"},
@@ -231,7 +231,7 @@ exports.updateUserAdmin = async (req,res)=>{
     }
 })
 
-  User.findOneAndUpdate(
+  User.updateOne(
     {_id:id},
     {$set : data},
     {new: true, select: "-password"},

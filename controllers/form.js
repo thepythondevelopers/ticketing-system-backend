@@ -207,7 +207,7 @@ exports.updateForm = (req,res) =>{
             }
         
     }  
-  Form.findOneAndUpdate(
+  Form.updateOne(
     {_id : id},
     {$set : data},
     {new: true},

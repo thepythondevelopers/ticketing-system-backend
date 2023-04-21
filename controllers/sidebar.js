@@ -76,7 +76,7 @@ exports.updateSidebar = async(req,res) =>{
         
     }  
 
-    await Sidebar.findOneAndUpdate(
+    await Sidebar.updateOne(
         {_id : id,user:req.user._id},
         {$set : data},
         {new: true},
@@ -139,7 +139,7 @@ exports.deleteSidebar = (req,res) =>{
     checked : 1,
     completedate : Date.now()
   }
-  Sidebar.findOneAndUpdate(
+  Sidebar.updateOne(
     {_id : id,user:req.user._id},
     {$set : data},
     {new: true},
@@ -174,7 +174,7 @@ exports.uncheckedSidebar = (req,res) =>{
     checked : 0,
     completedate : null
   }
-  Sidebar.findOneAndUpdate(
+  Sidebar.updateOne(
     {_id : id,user:req.user._id},
     {$set : data},
     {new: true},

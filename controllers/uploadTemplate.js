@@ -58,7 +58,7 @@ exports.updateUploadTemplate =async (req,res) =>{
     }
     })    
 
-    await UploadTemplate.findOneAndUpdate(
+    await UploadTemplate.updateOne(
         {_id : id,user:req.user._id},
         {$set : data},
         {new: true},

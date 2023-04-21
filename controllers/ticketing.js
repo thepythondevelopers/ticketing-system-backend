@@ -58,7 +58,7 @@ exports.updateTicket =async (req,res) =>{
     }
     })    
 
-    await Ticketing.findOneAndUpdate(
+    await Ticketing.updateOne(
         {_id : id,user:req.user._id},
         {$set : data},
         {new: true},

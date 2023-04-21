@@ -1,4 +1,5 @@
 const Location = require("../models/location");
+const Officer = require("../models/officer");
 const {validationResult} = require("express-validator");
 var fs = require('fs');
 
@@ -28,7 +29,7 @@ exports.createLocation = (req,res) =>{
     }    
     
     location =new Location(data);
-    location.save((err,location)=>{
+    location.save(async (err,location)=>{
         if(err){
             return res.status(400).json({
                 error : "Unable to save in db"
@@ -90,11 +91,11 @@ exports.updateLocation =async (req,res) =>{
     }
     })    
 
-    await Location.findOneAndUpdate(
+    await Location.updateOne(
         {_id : id,user:req.user._id},
         {$set : data},
         {new: true},
-        (err,location) => {
+        async (err,location) => {
             if(err){
                 return res.status(404).json({
                     error : err
@@ -107,7 +108,11 @@ exports.updateLocation =async (req,res) =>{
                     message : "No Data Found"
                 })
             }
-    
+            await Officer.updateOne(
+                {user:req.user._id,location:location._id},
+                {$set : {"helpers.number_target" : (req.body.no_of_members*req.body.percentage)/100}},
+                {new: true}
+                )
             return res.json(location);
         }
         )

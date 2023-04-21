@@ -62,7 +62,7 @@ exports.updateCategory = (req,res) =>{
         color : req.body.color
     }    
   
-  Category.findOneAndUpdate(
+  Category.updateOne(
     {_id : id,user:req.user._id},
     {$set : data},
     {new: true},

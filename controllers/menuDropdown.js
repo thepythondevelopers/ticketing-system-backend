@@ -63,7 +63,7 @@ exports.updateMenuDropdown = (req,res) =>{
     note : req.body.note,
     board_fixed : req.body.board_fixed
   }
-  MenuDropdown.findOneAndUpdate(
+  MenuDropdown.updateOne(
     {_id : id,user:req.user._id},
     {$set : data},
     {new: true},

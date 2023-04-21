@@ -64,7 +64,7 @@ exports.updateEvacuation = (req,res) =>{
         evacuation_time : req.body.evacuation_time,
         deficiency : req.body.deficiency
     }  
-    Evacuation.findOneAndUpdate(
+    Evacuation.updateOne(
     {_id : id},
     {$set : data},
     {new: true},

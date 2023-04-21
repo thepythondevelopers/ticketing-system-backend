@@ -99,7 +99,7 @@ await ReleaseFormPartB.findOne({_id:id,user:req.user._id}).exec((err,l)=>{
     }
     })   
     
-    await ReleaseFormPartB.findOneAndUpdate(
+    await ReleaseFormPartB.updateOne(
         {_id : id,user:req.user._id},
         {$set : data},
         {new: true},
