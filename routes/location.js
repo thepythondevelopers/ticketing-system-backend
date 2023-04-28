@@ -29,27 +29,27 @@ const storage = multer.diskStorage({
   router.post("/create-location",verifyToken,upload.fields([{name:'location_image',maxCount:1},{name:'company_logo',maxCount:1}]),
   [
     check("company_name").notEmpty(),
-    check("house_number").notEmpty(),
+    //check("house_number").notEmpty(),
     check("street").notEmpty(),
     check("postal_code").notEmpty(),
     check("city").notEmpty(),
     check("show_as").notEmpty(),
-    check("location").notEmpty(),
-    check("no_of_members").notEmpty(),
-    check("percentage").notEmpty()
+    //check("location").notEmpty(),
+    //check("no_of_members").notEmpty(),
+    //check("percentage").notEmpty()
   ]
   ,createLocation);
   router.put("/update-location/:id",verifyToken,upload.fields([{name:'location_image',maxCount:1},{name:'company_logo',maxCount:1}]),
   [
     check("company_name").notEmpty(),
-    check("house_number").notEmpty(),
+    //check("house_number").notEmpty(),
     check("street").notEmpty(),
     check("postal_code").notEmpty(),
     check("city").notEmpty(),
     check("show_as").notEmpty(),
-    check("location").notEmpty(),
-    check("no_of_members").notEmpty(),
-    check("percentage").notEmpty()
+    //check("location").notEmpty(),
+    //check("no_of_members").notEmpty(),
+    //check("percentage").notEmpty()
   ],
   updateLocation);
   router.get("/get-location/:id",verifyToken,getSingleLocation);

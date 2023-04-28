@@ -9,7 +9,7 @@ const locationSchema = new Schema({
     },
     house_number:{
         type:String,
-        required : true,
+        //required : true,
         trim : true
     },
     street:{
@@ -36,11 +36,11 @@ const locationSchema = new Schema({
         trim : true,
         required: true
     },
-    location:{
+    /*location:{
         type:String,
-        required : true,
+        //required : true,
         trim : true
-    },
+    },*/
     company_logo:{
         type:String,
         trim : true
@@ -48,12 +48,12 @@ const locationSchema = new Schema({
     no_of_members:{
         type: Number,
         trim : true,
-        required: true
+        //required: true
     },
     percentage:{
         type: Number,
         trim : true,
-        required: true
+        //required: true
     },
     note:{
         type: String,
