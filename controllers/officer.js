@@ -9,6 +9,11 @@ exports.createOfficer = async (req,res) =>{
           error : errors.array()
       })
   }
+  if(req.body.helpers){
+    if(req.body.helpers.number_target>req.body.helpers.actual_target){
+        return res.status(400).json({"error":"Actual cannot be  less than target"});
+    }
+  }
   await Officer.find({user:req.user._id,location:req.body.location}).exec(async (err,officer)=>{
     if(err){
         return res.status(400).json({

@@ -108,12 +108,20 @@ exports.updateLocation =async (req,res) =>{
                     message : "No Data Found"
                 })
             }
+            console.log("see::",req.user._id," location::",req.params.id);
             await Officer.updateOne(
-                {user:req.user._id,location:location._id},
+                {user:req.user._id,location:req.params.id},
                 {$set : {"helpers.number_target" : (req.body.no_of_members*req.body.percentage)/100}},
-                {new: true}
+                {new: true},
+                async(err,officer)=>{
+                    if(err){
+                        return res.json(err);
+                    }
+                    else{
+                        return res.json({"location":location,"officer":officer});
+                    }
+                }
                 )
-            return res.json(location);
         }
         )
 }
