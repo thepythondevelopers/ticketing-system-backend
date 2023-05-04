@@ -57,19 +57,28 @@ const evacuationSchema = new Schema({
         fire_department:{
             type: Boolean
         },
+        fire_alarm_system:{
+            type: Boolean
+        },
+        fire_alarm_system2:{
+            type: Boolean
+        },
+        fire_department_key_depot:{
+            type: Boolean
+        },
         others:{
+            type: Boolean
+        },
+        others2:{
             type: Boolean
         },
         others_information: {
             type: String
         },
-        assumed_situation1:{
+        others2_information: {
             type: String
         },
-        assumed_situation2:{
-            type: String
-        },
-        assumed_situation3:{
+        assumed_situation:{
             type: String
         },
         no_of_excercise_observation: {
