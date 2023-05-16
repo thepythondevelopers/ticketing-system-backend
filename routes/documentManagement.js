@@ -13,10 +13,10 @@ const storage = multer.diskStorage({
       cb(null,Date.now()+file.originalname)
     }
   })
-  
+
   const fileFilter = (req,file,cb)=>{
     if(file.mimetype==='application/pdf' || file.mimetype==='application/vnd.openxmlformats-officedocument.wordprocessingml.document' || file.mimetype==='text/plain'){
-      cb(null,true)
+     cb(null,true)
     }else{
       cb(null,false)
     }

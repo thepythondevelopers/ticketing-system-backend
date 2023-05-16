@@ -19,16 +19,13 @@ const evacuationSchema = new Schema({
         type: Date
     },
     general: {
-        location: {
+        company_name: {
             type: String
         },
         state: {
             type: String
         },
         zip_code: {
-            type: String
-        },
-        base_area: {
             type: String
         },
         employees: {

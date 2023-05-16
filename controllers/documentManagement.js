@@ -15,8 +15,6 @@ exports.createDocument = (req,res) =>{
     })
 }
 
-
-
     data={
         file_name : req.body.file_name,
         user : req.user._id, 
