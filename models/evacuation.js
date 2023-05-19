@@ -28,6 +28,9 @@ const evacuationSchema = new Schema({
         zip_code: {
             type: String
         },
+        city:{
+            type:String
+        },
         employees: {
             type: String
         },
