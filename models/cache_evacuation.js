@@ -1,16 +1,14 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const {ObjectId} = mongoose.Schema;
-const evacuationSchema = new Schema({
+const cacheEvacuationSchema = new Schema({
     user :{
         type : ObjectId,
-        ref: "User",
-        required : true
+        ref: "User"
     },
     location:{
         type : ObjectId,
-        ref: "Location",
-        required : true
+        ref: "Location"
     },
     evacuation_nr: {
         type: String
@@ -114,16 +112,14 @@ const evacuationSchema = new Schema({
     deficiency: [
         {
         title: {
-            type: String,
-            required : true
+            type: String
         },
         description: {
-            type: String,
-            required : true
+            type: String
         }
         }
     ]
     
 },{timestamps: true});
 
-module.exports = mongoose.model("Evacuation",evacuationSchema);
+module.exports = mongoose.model("CacheEvacuation",cacheEvacuationSchema);

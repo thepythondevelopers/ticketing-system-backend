@@ -1,6 +1,41 @@
 const Evacuation = require("../models/evacuation");
+const CacheEvacuation = require("../models/cache_evacuation");
 const {validationResult} = require("express-validator");
 const User = require("../models/user");
+
+exports.createCacheEvacuation = (req,res) =>{
+    const errors = validationResult(req);
+    console.log("errors from evaluation::",errors);
+    console.log("request from evaluation::",req.body);
+  if(!errors.isEmpty()){
+      return res.status(400).json({
+          error : errors.array()
+      })
+  }
+  
+    data={
+        user : req.user._id,
+        location : req.body.location,
+        evacuation_nr : req.body.evacuation_nr,
+        date : req.body.date,
+        general : req.body.general,
+        procedure : req.body.procedure,
+        evacuation_time : req.body.evacuation_time,
+        deficiency : req.body.deficiency
+    }   
+    
+     
+    
+    var evacuation =new CacheEvacuation(data);
+    evacuation.save((err,document)=>{
+        if(err){
+            return res.status(400).json({
+                message : err
+            })
+        }
+        return res.json({message : 'Saved Successfully.','data':evacuation});
+    })
+}
 
 exports.createEvacuation = (req,res) =>{
     const errors = validationResult(req);
@@ -44,7 +79,19 @@ exports.getSingleEvacuation =  (req,res)=>{
                 message : "Something Went Wrong"
             })
         }
-        return res.json(document);
+        else if(document){
+            return res.json(document);
+        }
+        else if(!document){
+            CacheEvacuation.findOne({_id:id,user:req.user._id}).exec((err2,document2)=>{
+                if(err2){
+                    return res.status(400).json({
+                        message : "Something Went Wrong"
+                    })
+                }
+                return res.json(document2);
+            })
+        }
     })    
 }
 
@@ -87,12 +134,29 @@ exports.updateEvacuation = (req,res) =>{
     )   
 }
 
+exports.getCacheEvacuationData = (req,res)=>{
+    const location = req.params.location_id;
+    CacheEvacuation.find({user:req.user._id,location: location}).exec((err,document)=>{
+        if(err){
+            return res.status(400).json({
+                message : "No Data Found"
+            })
+        }
+        return res.json(document);
+    })    
+}
+
 exports.getEvacuationData = (req,res)=>{
     const location = req.params.location_id;
     Evacuation.find({user:req.user._id,location: location}).exec((err,document)=>{
         if(err){
-            return res.status(400).json({
-                message : "No Data Found"
+            CacheEvacuation.find({user:req.user._id,location: location}).exec((err2,document2)=>{
+                if(err2){
+                    return res.status(400).json({
+                        message : "No Data Found"
+                    })
+                }
+                return res.json(document2);
             })
         }
         return res.json(document);
@@ -147,13 +211,32 @@ exports.deleteEvacuation = (req,res) =>{
                 return res.json({message : "Evacuation deleted successfully"})
             }
             if(document.deletedCount==0){
-                return res.status(404).json({
-                    message : "No Data Found"
-                })
+
+                CacheEvacuation.deleteOne(
+                    {_id : id,user:req.user._id},
+                    (err3,document3) => {
+                        if(err3){
+                            return res.status(404).json({
+                                error : err3
+                            })
+                        
+                        }
+                        
+                        if(document3.deletedCount==1){
+                            //return res.json({id : id});
+                            return res.json({message : "Cache Evacuation deleted successfully"})
+                        }
+                        if(document3.deletedCount==0){
+                            return res.status(404).json({
+                                message : "No Data Found"
+                            })
+                        }
+                        return res.status(404).json({
+                            message : "Something Went Wrong"
+                        })
+                    }
+                    )
             }
-            return res.status(404).json({
-                message : "Something Went Wrong"
-            })
         }
         )
   }
