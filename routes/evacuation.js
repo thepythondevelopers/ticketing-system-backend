@@ -8,7 +8,7 @@ const {verifyToken} = require("../middleware/auth");
 
 
 router.post("/create-evacuation",verifyToken,createEvacuation);
-router.post("/create-cache-evacuation",verifyToken,createCacheEvacuation);
+router.post("/create-cache-evacuation/:id",verifyToken,createCacheEvacuation);
 router.get("/get-evacuation/:id",verifyToken,getSingleEvacuation);
 router.get("/total-evacuation/:email",verifyToken,totalEvacuation);
 router.get("/get-evacuation-data/:location_id",verifyToken,getEvacuationData);
