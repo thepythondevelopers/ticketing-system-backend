@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { check} = require("express-validator");
-const {createFormPartB,updateFormPartB,getSingleFormB,getFormBData,deleteFormB} = require("../controllers/releaseFormPartB");
+const {createFormPartB,updateFormPartB,getDataMultiFormB,getDataSingleFormB,getSingleFormB,getFormBData,deleteFormB} = require("../controllers/releaseFormPartB");
 const {verifyToken} = require("../middleware/auth");
 var multer = require('multer');
 
@@ -27,8 +27,10 @@ const storage = multer.diskStorage({
   })
 
   router.post("/create-form-part-b",verifyToken,upload.fields([{name:'fire_security_regulation',maxCount:1},{name:'file_upload',maxCount:1}]),createFormPartB);
-  router.put("/update-form-part-b",verifyToken,upload.fields([{name:'fire_security_regulation',maxCount:1},{name:'file_upload',maxCount:1}]),updateFormPartB);
+  router.put("/update-form-part-b/:location",verifyToken,upload.fields([{name:'fire_security_regulation',maxCount:1},{name:'file_upload',maxCount:1}]),updateFormPartB);
   router.get("/get-form-part-b/:id",verifyToken,getSingleFormB);
+  router.get("/get-form-part-b-multi/:location",verifyToken,getDataMultiFormB);
+  router.get("/get-form-part-b-single/:id",verifyToken,getDataSingleFormB);
   router.get("/get-form-part-b-data",verifyToken,getFormBData);
   router.delete("/delete-form-part-b/:id",verifyToken,deleteFormB);
 

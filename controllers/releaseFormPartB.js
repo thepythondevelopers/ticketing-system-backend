@@ -28,7 +28,8 @@ exports.createFormPartB = (req,res) =>{
         special_rule : req.body.special_rule,
         appendix : req.body.appendix,
         file_upload : file_upload,
-        user : req.user._id
+        user : req.user._id,
+        location_id: req.body.location_id 
     }    
     
     releaseFormPartB =new ReleaseFormPartB(data);
@@ -45,6 +46,9 @@ exports.createFormPartB = (req,res) =>{
 
 
 exports.updateFormPartB = async (req,res) =>{
+    console.log("working");
+    console.log(req.body);
+    console.log(req.params.location)
     const errors = validationResult(req);
   if(!errors.isEmpty()){
       return res.status(400).json({
@@ -54,7 +58,7 @@ exports.updateFormPartB = async (req,res) =>{
 
     data={
         introduction : req.body.introduction,
-        fire_security_regulation : fire_security_regulation,
+        fire_security_regulation : req.body.fire_security_regulation,
         fire_protection : req.body.fire_protection,
         fire_smoke_propegation : req.body.fire_smoke_propegation,
         rescue_routes : req.body.rescue_routes,
@@ -66,8 +70,9 @@ exports.updateFormPartB = async (req,res) =>{
         attemp_extingush : req.body.attemp_extingush,
         special_rule : req.body.special_rule,
         appendix : req.body.appendix,
-        file_upload : file_upload,
-        user : req.user._id
+        file_upload : req.body.file_upload,
+        user : req.user._id,
+        location_id : req.body.location_id
     }
 
     if(req.files !== null && typeof(req.files) != "undefined"){    
@@ -79,7 +84,7 @@ exports.updateFormPartB = async (req,res) =>{
     }
 } 
 
-await ReleaseFormPartB.findOne({_id:id,user:req.user._id}).exec((err,l)=>{
+await ReleaseFormPartB.findOne({location_id:req.params.location,user:req.user._id}).exec((err,l)=>{
         if(err){
             return res.status(400).json({
                 message : "Something Went Wrong"
@@ -100,7 +105,7 @@ await ReleaseFormPartB.findOne({_id:id,user:req.user._id}).exec((err,l)=>{
     })   
     
     await ReleaseFormPartB.updateOne(
-        {_id : id,user:req.user._id},
+        {location_id : req.params.location,user:req.user._id},
         {$set : data},
         {new: true},
         (err,location) => {
@@ -122,6 +127,29 @@ await ReleaseFormPartB.findOne({_id:id,user:req.user._id}).exec((err,l)=>{
         )
 }
 
+exports.getDataSingleFormB =  (req,res)=>{
+    let id = req.params.id;
+    ReleaseFormPartB.findOne({_id:id,user:req.user._id}).exec((err,location)=>{
+        if(err){
+            return res.status(400).json({
+                message : "Something Went Wrong"
+            })
+        }
+        return res.json(location);
+    })    
+}
+
+exports.getDataMultiFormB =  (req,res)=>{
+    let id = req.params.location;
+    ReleaseFormPartB.find({location_id:id,user:req.user._id}).exec((err,location)=>{
+        if(err){
+            return res.status(400).json({
+                message : "Something Went Wrong"
+            })
+        }
+        return res.json(location);
+    })    
+}
 
 exports.getSingleFormB =  (req,res)=>{
     let id = req.params.id;

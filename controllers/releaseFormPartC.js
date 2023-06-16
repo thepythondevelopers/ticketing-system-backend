@@ -22,7 +22,8 @@ exports.createFormPartC = (req,res) =>{
         site_specific : req.body.site_specific,
         appendix : req.body.appendix,
         file_upload : file_upload,
-        user : req.user._id
+        user : req.user._id,
+        location_id:req.body.location_id
     }    
     
     releaseFormPartC =new ReleaseFormPartC(data);
@@ -33,7 +34,7 @@ exports.createFormPartC = (req,res) =>{
                 error : err
             })
         }
-        return res.json(release);
+        return res.status(201).json(release);
     })
 }
 
@@ -118,7 +119,8 @@ exports.getSingleFormC =  (req,res)=>{
 }
 
 exports.getFormCData = (req,res)=>{
-    ReleaseFormPartC.find({user:req.user._id}).exec((err,location)=>{
+    let id = req.params.id;
+    ReleaseFormPartC.find({location_id:id,user:req.user._id}).exec((err,location)=>{
         if(err){
             return res.status(400).json({
                 message : "No Data Found"

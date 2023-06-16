@@ -4,27 +4,32 @@ const {ObjectId} = mongoose.Schema;
 const releaseFormPartBSchema = new Schema({
     introduction:{
         type:String,
+        //required : true,
+        trim : true
+    },
+    location_id:{
+        type:String,
         required : true,
         trim : true
     },
     fire_security_regulation:{
         type:String,
-        required : true,
+        //required : true,
         trim : true
     },
     fire_protection:{
         type:String,
-        required : true,
+        //required : true,
         trim : true
     },
     fire_smoke_propegation:{
         type:String,
-        required : true,
+        //required : true,
         trim : true
     },
     rescue_routes:{
         type:String,
-        required : true,
+        //required : true,
         trim : true
     },
     sihnalization:{

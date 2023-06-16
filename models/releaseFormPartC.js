@@ -39,7 +39,11 @@ const releaseFormPartCSchema = new Schema({
         trim : true
     },
     file_upload:{
-        type: String,
+        type: String
+    },
+    location_id:{
+        type:String,
+        required : true,
         trim : true
     },
     user :{

@@ -111,18 +111,9 @@ const evacuationSchema = new Schema({
             type: String
         }
     },
-    deficiency: [
-        {
-        title: {
-            type: String,
-            required : true
-        },
-        description: {
-            type: String,
-            required : true
-        }
-        }
-    ]
+    deficiency: {
+        type:Object
+    }
     
 },{timestamps: true});
 

@@ -29,7 +29,7 @@ const storage = multer.diskStorage({
   router.post("/create-form-part-c",verifyToken,upload.fields([{name:'file_upload',maxCount:1}]),createFormPartC);
   router.put("/update-form-part-c/:id",verifyToken,upload.fields([{name:'file_upload',maxCount:1}]),updateFormPartC);
   router.get("/get-form-part-c/:id",verifyToken,getSingleFormC);
-  router.get("/get-form-part-c-data",verifyToken,getFormCData);
+  router.get("/get-form-part-c-data/:id",verifyToken,getFormCData);
   router.delete("/delete-form-part-c/:id",verifyToken,deleteFormC);
   
 module.exports = router;
