@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const {ObjectId} = mongoose.Schema;
-const formSchema = new Schema({
+const cacheFormSchema = new Schema({
     user :{
         type : ObjectId,
         ref: "User",
@@ -289,4 +289,4 @@ const formSchema = new Schema({
     
 },{timestamps: true});
 
-module.exports = mongoose.model("Form",formSchema);
+module.exports = mongoose.model("CacheRelease",cacheFormSchema);
